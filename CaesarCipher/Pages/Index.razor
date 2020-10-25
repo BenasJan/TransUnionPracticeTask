@@ -1,0 +1,36 @@
+﻿@page "/"
+@using CaesarCipher.Services.Interfaces
+@inject ICipherService CipherService
+
+<h3>Encipher</h3>
+<div>
+    <label for="text-to-cipher">Text to cipher:</label>
+    <input type="text" id="text-to-cipher" @bind="@TextToCipher"/>
+</div>
+<div>
+    <label for="steps-to-shift-text">Steps to shift by: </label>
+    <input type="number" id="steps-to-shift-text" @bind="StepsToShiftBy"/>
+</div>
+<button class="btn btn-primary" @onclick="CipherText">Cipher text</button>
+@if (CipheredText != null && CipheredTextLooped != null)
+{
+    <div>Ciphered text:</div>
+    <div>@CipheredText</div>
+    <br/>
+    <div>Ciphered text by looping through the alphabet:</div>
+    <div>@CipheredTextLooped</div>
+}
+
+@code
+{
+    public string TextToCipher { get; set; }
+    public string CipheredText { get; set; }
+    public string CipheredTextLooped { get; set; }
+    public int StepsToShiftBy { get; set; }
+
+    public void CipherText()
+    {
+        CipheredText = CipherService.GetCipheredText(TextToCipher, StepsToShiftBy);
+        CipheredTextLooped = CipherService.GetCipheredTextLooped(TextToCipher, StepsToShiftBy);
+    }
+}

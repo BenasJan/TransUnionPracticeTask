@@ -1,0 +1,48 @@
+﻿@page "/decipher"
+@using CaesarCipher.Services.Interfaces
+@inject ICipherService CipherService
+
+<h3>Decipher</h3>
+<div>
+    <label for="text-to-decipher">Text to decipher:</label>
+    <input type="text" id="text-to-decipher" @bind="@TextToDecipher"/>
+</div>
+<div>
+    <label for="steps-to-shift-text">Steps to shift by:</label>
+    <input type="number" id="steps-to-shift-text" @bind="StepsToShiftBy"/>
+</div>
+<div>
+    <button class="btn btn-primary" @onclick="DecipherText">Decipher text</button>
+</div>
+<div>
+    <button class="btn btn-primary" @onclick="DecipherTextLooped">Decipher text looped</button>
+</div>
+
+@if (DecipheredText != null)
+{
+    <div>Deciphered text:</div>
+    <div>@DecipheredText</div>
+}
+<br/>
+@if (DecipheredTextLooped != null)
+{
+    <div>Deciphered text by looping through the alphabet:</div>
+    <div>@DecipheredTextLooped</div>
+}
+
+@code {
+    public string TextToDecipher { get; set; }
+    public int StepsToShiftBy { get; set; }
+    public string DecipheredText { get; set; }
+    public string DecipheredTextLooped { get; set; }
+
+    public void DecipherText()
+    {
+        DecipheredText = CipherService.GetDecipheredText(TextToDecipher, StepsToShiftBy);
+    }
+
+    public void DecipherTextLooped()
+    {
+        DecipheredTextLooped = CipherService.GetDecipheredTextLooped(TextToDecipher, StepsToShiftBy);
+    }
+}
