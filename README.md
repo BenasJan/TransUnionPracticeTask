@@ -14,6 +14,7 @@ make the cipher fully functional. I just need to return the character that is en
 so I implented it in both ways.
 
 ![](/Screenshots/encipher-screenshot.png?raw=true)
+<br/>
 The text is enciphered in both ways:
 1. By simply shifting every character by the amount of steps
 2. Shifting every character by the amount of steps and looping through the alphabet when necessary (in the looping way, any character that is not a letter is left as is)
